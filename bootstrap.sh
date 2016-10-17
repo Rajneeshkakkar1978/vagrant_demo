@@ -7,7 +7,7 @@ echo "*****************Installing JDK****************"
 sudo apt-get install -y openjdk-7-jdk
 
 echo "*****************Installing Tomcat****************"
-sudo apt-get install tomcat7
+sudo apt-get install -y tomcat7
 
 echo "*****************Preparing War****************"
 cd /vagrant
