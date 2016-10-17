@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 
-echo “*****************STARTING VM PREP*****************”
+echo "*****************STARTING VM PREP****************"
 apt-get update
 
-echo “*****************Installing JDK*****************”
+echo "*****************Installing JDK****************"
 sudo apt-get install -y openjdk-7-jdk
 
-echo "*****************Installing Tomcat*****************”
+echo "*****************Installing Tomcat****************"
 sudo apt-get install tomcat7
 
-echo “*****************Preparing War*****************”
+echo "*****************Preparing War****************"
 cd /vagrant
 jar cvf tutorial.war *
 
-echo “*****************Deploying War*****************”
+echo "*****************Deploying War*****************"
 sudo cp tutorial.war /var/lib/tomcat7/webapps/
 
-echo “*****************VM PREP COMPLETE*****************”
+echo "*****************VM PREP COMPLETE****************"
