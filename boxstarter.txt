@@ -1,0 +1,5 @@
+set-ExplorerOptions -showHiddenFilesFoldersDrives -showProtectedOSFiles -showFileExtensions
+Enable-RemoteDesktop
+
+cinst jdk7
+cinst tomcat
