@@ -1,0 +1,6 @@
+Set-ExplorerOptions -showHidenFilesFoldersDrives -showProtectedOSFiles -showFileExtensions
+Enable-RemoteDesktop
+
+choco install -y jdk8
+
+choco install -y tomcat

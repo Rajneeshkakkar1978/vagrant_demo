@@ -4,17 +4,6 @@
 		 
 #Linux Mode
 #Vagrant.configure("2") do |config|
-#	Proxy Settings
-#	if !Vagrant.has_plugin?("vagrant-proxyconf") 
-#		system('vagrant plugin install vagrant-proxyconf')
-#		raise("vagrant-proxyconf installed. Run command again.");
-#	end
-
-#	if Vagrant.has_plugin?("vagrant-proxyconf")
-#		config.proxy.http = "http://proxy.ebiz.verizon.com:80/"
-#		config.proxy.https = "http://proxy.ebiz.verizon.com:80/"
-#		config.proxy.no_proxy = "localhost,127.0.0.1,.example.com"
-#	end
 #   config.vm.box = "hashicorp/precise64"
 #   config.vm.provision :shell, path: "linuxProvisioning.sh"
 #   config.vm.network :forwarded_port, guest: 8080, host: 4567
@@ -22,28 +11,18 @@
 
 #Windows Mode
 Vagrant.configure("2") do |config|
-#	Proxy Settings
-#	if !Vagrant.has_plugin?("vagrant-proxyconf") 
-#		system('vagrant plugin install vagrant-proxyconf')
-#		raise("vagrant-proxyconf installed. Run command again.");
-#	end
-
-#	if Vagrant.has_plugin?("vagrant-proxyconf")
-#		config.proxy.http = "http://proxy.ebiz.verizon.com:80"
-#		config.proxy.https = "http://proxy.ebiz.verizon.com:80"
-#		config.proxy.no_proxy = "localhost,127.0.0.1,.example.com"
-#	end
-	
-	config.vm.box = 'opentable/win-2008r2-standard-amd64-nocm'
+	config.vm.box = 'opentable/win-2012r2-standard-amd64-nocm'
 	config.vm.guest = :windows
 	config.vm.provider :virtualbox do |vb|
-		vb.name = "Win2012R2 AMD64"
-	config.vm.boot_timeout = 600
+		vb.name = "Win2012"
+	config.vm.boot_timeout = 300
 	config.vm.communicator = "winrm"
 	end
 
 	config.winrm.username = 'vagrant'
 	config.winrm.password = 'vagrant'
+
+        
   
 	config.vm.provider :virtualbox do |vb|
 		vb.gui = true
@@ -52,8 +31,14 @@ Vagrant.configure("2") do |config|
 		vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
 	end
   
-	config.vm.network :forwarded_port, guest: 8080, host: 4567	
-	
-	config.vm.provision :shell, path: "windowsProvisioning.cmd"
+	config.vm.network :forwarded_port, guest: 8080, host: 4567
+
+        config.vm.provision "shell", inline: <<-SCRIPT
+             Set-Item WSMan:\\localhost\\Shell\\MaxShellsPerUser -Value 100
+             Set-Item WSMan:\\localhost\\Service\\MaxConcurrentOperationsPerUser -Value 100
+        SCRIPT
+
+	config.vm.provision :shell, path: "windowsProvisioning_Part1.cmd"
+        config.vm.provision :shell, path: "windowsProvisioning_Part2.cmd"
 
 end
