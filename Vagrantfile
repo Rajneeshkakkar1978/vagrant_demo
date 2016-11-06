@@ -13,18 +13,13 @@
 Vagrant.configure("2") do |config|
 	config.vm.box = 'opentable/win-2012r2-standard-amd64-nocm'
 	config.vm.guest = :windows
-	config.vm.provider :virtualbox do |vb|
-		vb.name = "Win2012"
 	config.vm.boot_timeout = 300
 	config.vm.communicator = "winrm"
-	end
-
 	config.winrm.username = 'vagrant'
 	config.winrm.password = 'vagrant'
 
-        
-  
-	config.vm.provider :virtualbox do |vb|
+        config.vm.provider :virtualbox do |vb|
+                vb.name = "Win2012_Server"
 		vb.gui = true
 		vb.customize ["modifyvm", :id, "--memory", "1024"]
 		vb.customize ["modifyvm", :id, "--vram", "64"]
